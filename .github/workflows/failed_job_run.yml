@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set Environment Failed
-        uses: actions/github-script@v3
+        uses: actions/github-script@v7
         with:
           script: |
             core.setFailed('Deployment Failed')
@@ -28,7 +28,7 @@ jobs:
     if: ${{ always() && (needs.job1.result == 'failure') }}
     steps:
       - name: Set Environment Failed
-        uses: actions/github-script@v3
+        uses: actions/github-script@v7
         with:
           script: |
             core.setFailed('Deployment Failed')
