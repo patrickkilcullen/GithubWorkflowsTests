@@ -1,0 +1,30 @@
+---
+name: Terraform Deployment
+
+on:
+  workflow_call:
+    inputs:
+      required: true
+      type: choice
+      options:
+        - test
+
+jobs:
+  job1:
+    steps:
+      - name: Set Environment Failed
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Deployment Failed')
+
+  job2:
+    needs:
+      - job1
+    if: ${{ always() && (needs.job1.result == 'failure') }}
+    steps:
+      - name: Set Environment Failed
+        uses: actions/github-script@v3
+        with:
+          script: |
+            core.setFailed('Deployment Failed')
