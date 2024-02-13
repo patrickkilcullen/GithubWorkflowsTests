@@ -2,9 +2,8 @@
 name: Pr Label
 
 on:
-  label:
-    types:
-      - edited
+  pull_request:
+    types: labeled
 
 jobs:
   job1:
