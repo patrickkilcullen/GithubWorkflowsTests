@@ -1,0 +1,17 @@
+---
+name: Pr Label
+
+on:
+  label:
+    types:
+      - edited
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Environment Failed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            return "Hello!"
