@@ -1,6 +1,6 @@
 ---
-name: Terraform Deployment
-
+name: test
+run-name: ${{ inputs.test }} ${{ inputs.test }} release
 on:
   workflow_dispatch:
     inputs:
