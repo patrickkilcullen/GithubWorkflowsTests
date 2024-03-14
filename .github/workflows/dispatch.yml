@@ -1,6 +1,6 @@
 ---
-name: test
-run-name: ${{ inputs.test }} ${{ inputs.test }} release
+name: dispatch
+run-name: ${{ inputs.test }} dispatch
 on:
   workflow_dispatch:
     inputs:
