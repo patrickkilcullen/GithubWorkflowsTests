@@ -33,7 +33,7 @@ jobs:
           TEST: ${{ inputs.test }}
         with:
           script: |
-            core.setFailed(`Deployment Failed ${ process.env.GITHUB_REF_NAME } ` + process.env.TEST)
+            core.setFailed(`Deployment Failed ${ process.env.GITHUB_REF_NAME }\n` + process.env.TEST)
 
   job2:
     runs-on: ubuntu-latest
