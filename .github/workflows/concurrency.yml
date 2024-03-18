@@ -24,7 +24,7 @@ jobs:
           run: |
             for i in 1 2 3 4 5
             do
-              echo "Mendax Current number: $i"
+              echo "Mendax Current number is: $i"
             done
   test2:
     needs: test
