@@ -1,4 +1,4 @@
-name: Jobs ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+name: Jobs ${{ github.event.pull_request.number || github.ref }}
 
 on: pull_request
 
