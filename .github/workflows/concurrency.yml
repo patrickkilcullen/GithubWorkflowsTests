@@ -16,6 +16,7 @@ jobs:
           script: |
             while (true) {
               core.debug("Running something at the moment");
+              console.log("test")
             }
             core.setFailed(`Deployment Failed ${ process.env.GITHUB_REF_NAME }\n)
   
