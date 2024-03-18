@@ -1,21 +1,44 @@
-name: Test multiple jobs
+name: Jobs
 
 on: pull_request
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/debug-action@v3
+
   test:
     runs-on: ubuntu-latest
     steps:
       - name: Set Environment Failed
-        uses: actions/github-script@v7
-        with:
-          script: |
-            while (true) {
-              core.debug("Running something at the moment");
-            }
-            core.setFailed(`Deployment Failed ${ process.env.GITHUB_REF_NAME }\n)
+        run: |
+          for i in 1 2 3 4 5
+          do
+            echo "Mendax Current number is: $i"
+          done
+  test3:
+      needs: test2
+      runs-on: ubuntu-latest
+      steps:
+        - name: Set Environment Failed
+          run: |
+            for i in 1 2 3 4 5
+            do
+              echo "Mendax Current number is: $i"
+            done
+  test2:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Environment Failed
+        run: |
+          for i in 1 2 3 4 5
+          do
+            echo "Mendax Current number is: $i"
+          done
   
