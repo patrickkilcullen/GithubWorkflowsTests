@@ -1,4 +1,4 @@
-name: Jobs ${{ github.event.pull_request.number || github.ref }}
+name: Jobs
 
 on: pull_request
 
@@ -7,6 +7,11 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/debug-action@v3
+
   test:
     runs-on: ubuntu-latest
     steps:
