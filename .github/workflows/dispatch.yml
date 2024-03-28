@@ -14,7 +14,7 @@ on:
 
 jobs:
   test:
-    if: contains( inputs.workspace, 'other' ) && !startsWith(github.base_ref, format('test-{0}', inputs.test))
+    if: contains( inputs.test, 'other' ) && !startsWith(github.base_ref, format('test-{0}', inputs.test))
     runs-on: [ "self-hosted", "linux", "x64", "ubuntu-latest" ]
     steps:
       - name: Invalid release branch
