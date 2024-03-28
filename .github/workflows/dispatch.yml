@@ -21,7 +21,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            core.setFailed('git branch ${process.env.GITHUB_REF_NAME} is not a valid release')
+            core.setFailed(`git branch ${process.env.GITHUB_REF_NAME} is not a valid release`)
   first:
     if: ${{ !contains( inputs.test, 'other' ) || (contains( inputs.test, 'other' ) && startsWith(github.ref, format('refs/heads/test-{0}', inputs.test))) }}
     runs-on: ubuntu-latest
