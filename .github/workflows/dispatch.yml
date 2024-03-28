@@ -20,7 +20,7 @@ jobs:
       NAME: ${{ github.ref }}
       TEST: ${{ contains( inputs.test, 'other' ) }}
       START: ${{ !startsWith(github.ref, format('refs/heads/test-{0}', inputs.test)) }}
-      FORMAT: ${{ format('refs/heads/test-{0}', inputs.test)) }}
+      FORMAT: ${{ format('refs/heads/test-{0}', inputs.test) }}
     steps:
       - name: Invalid release branch
         uses: actions/github-script@v7
