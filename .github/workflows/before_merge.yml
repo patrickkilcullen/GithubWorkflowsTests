@@ -13,3 +13,5 @@ jobs:
       - run: echo "This PR was approved"
 
       - run: echo "another step"
+
+      - run: echo "another step"
