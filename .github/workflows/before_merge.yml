@@ -4,6 +4,8 @@ name: Before Merge
 on:
   pull_request_review:
     types: [submitted]
+    branches:
+      - 'fail'
 
 jobs:
   approved:
