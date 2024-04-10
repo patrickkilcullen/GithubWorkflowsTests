@@ -1,0 +1,48 @@
+name: Jobs
+
+on: 
+  pull_request:
+    types: [labeled, synchronize]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/debug-action@v3
+
+  test:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'test update') }}
+    steps:
+      - uses: pooi/check-code-changed@1.0.0
+        id: check-main-code-changed
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          target-path: .github
+          
+      - name: Set Environment Failed
+        if: steps.check-main-code-changed.outputs.changed == 'true'
+        run: echo "changed"
+
+      - name: Set Environment Failed
+        run: |
+          for i in 1 2 3 4 5
+          do
+            echo "Mendax Current number is: $i"
+          done
+          
+  run_anyway:
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'test update') }}
+    steps:
+      - name: running
+        run: |
+          for i in 1 2 3 4 5
+          do
+            echo "Mendax Current number is: $i"
+          done
+  
