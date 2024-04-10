@@ -14,9 +14,9 @@ jobs:
     steps:
     - uses: hmarr/debug-action@v3
 
-  test:
+  with_label:
     runs-on: ubuntu-latest
-    if: ${{ !contains(github.event.pull_request.labels.*.name, 'test update') }}
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'test update') }}
     steps:
       - uses: pooi/check-code-changed@1.0.0
         id: check-main-code-changed
