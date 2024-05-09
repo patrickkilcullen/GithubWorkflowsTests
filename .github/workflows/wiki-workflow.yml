@@ -18,6 +18,7 @@ jobs:
         echo '# Test File' > test4.md
     - name: Push to wiki
       run: |
+        cd markdown
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
