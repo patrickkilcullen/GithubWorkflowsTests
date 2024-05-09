@@ -13,10 +13,11 @@ jobs:
         repository: ${{github.repository}}.wiki
         path: markdown
     - name: create file
-      run: echo '# Test File' > test4.md
-    - name: Push to wiki
       run: |
         cd markdown
+        echo '# Test File' > test4.md
+    - name: Push to wiki
+      run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add .
