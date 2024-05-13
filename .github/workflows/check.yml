@@ -44,7 +44,5 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           name: Core Tests
-          path: 'test.xml'
+          path: test.xml
           reporter: jest-junit
-          list-tests: failed
-          fail-on-error: false 
