@@ -24,7 +24,7 @@ jobs:
           script: |
             await core.summary
               .addHeading('Test Results')
-              .addCodeBlock(generateTestResults(), "js")
+              .addCodeBlock('console.log(\'hello world\')', "js")
               .addTable([
                 [{data: 'File', header: true}, {data: 'Result', header: true}],
                 ['foo.js', 'Pass ✅'],
