@@ -19,7 +19,7 @@ jobs:
 
       - name: Adding markdown
         run: | 
-          curl -o test.xml https://github.com/testmoapp/junitxml/blob/main/examples/junit-complete.xml
+          curl -o test.xml https://github.com/dorny/test-reporter/actions/runs/9010047041/artifacts/1486070633
 
       - name: Check for check
         uses: actions/github-script@v7
