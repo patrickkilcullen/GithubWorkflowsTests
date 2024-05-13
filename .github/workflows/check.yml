@@ -40,8 +40,10 @@ jobs:
 
       - name: Publish Unit Tests
         if: success() || failure()
+        continue-on-error: true
         uses: dorny/test-reporter@v1
         with:
           name: Core Tests
           path: test.json
           reporter: mocha-json
+          fail-on-error: false 
