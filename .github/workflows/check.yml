@@ -19,7 +19,7 @@ jobs:
 
       - name: Adding markdown
         run: | 
-          curl -o test.xml https://github.com/dorny/test-reporter/blob/main/__tests__/fixtures/jest-junit.xml
+          curl -o test.xml https://github.com/dorny/test-reporter/blob/main/__tests__/fixtures/mocha-json.json
 
       - name: Check for check
         uses: actions/github-script@v7
@@ -45,4 +45,4 @@ jobs:
         with:
           name: Core Tests
           path: test.xml
-          reporter: jest-junit
+          reporter: mocha-json
