@@ -19,7 +19,7 @@ jobs:
 
       - name: Adding markdown
         run: | 
-          curl -o test.json https://github.com/dorny/test-reporter/blob/main/__tests__/fixtures/mocha-json.json
+          curl -o test.json https://raw.githubusercontent.com/dorny/test-reporter/main/__tests__/fixtures/mocha-json.json
 
       - name: Check for check
         uses: actions/github-script@v7
