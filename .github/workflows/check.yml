@@ -46,4 +46,7 @@ jobs:
           name: Core Tests
           path: test.json
           reporter: mocha-json
-          fail-on-error: false 
+          fail-on-error: false
+
+      - name: test action
+        uses: ./.github/actions/job-output
