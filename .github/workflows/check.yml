@@ -1,10 +1,13 @@
 name: check
 run-name: check
 on:
-  workflow_dispatch:
+  push:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        test: [test1, test2, test3, other]
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +28,7 @@ jobs:
         with:
           script: |
             await core.summary
-              .addHeading('Test Results')
+              .addHeading('Test Results- ${{ matrix.test }}')
               .addCodeBlock('console.log(\'hello world\')', "js")
               .addTable([
                 [{data: 'File', header: true}, {data: 'Result', header: true}],
@@ -41,10 +44,10 @@ jobs:
         continue-on-error: true
         uses: dorny/test-reporter@v1
         with:
-          name: Core Tests
+          name: Core Tests - ${{ matrix.test }}
           path: test.json
           reporter: mocha-json
           fail-on-error: false
 
-      - name: test action
+      - name: test action - ${{ matrix.test }}
         uses: ./.github/actions/job-output
