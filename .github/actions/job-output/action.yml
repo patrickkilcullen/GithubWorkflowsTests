@@ -1,7 +1,4 @@
-name: Test Reporter
-description: |
-  Shows test results in GitHub UI: .NET (xUnit, NUnit, MSTest), Dart, Flutter, Java (JUnit), JavaScript (JEST, Mocha)
-author: Michal Dorner <dorner.michal@gmail.com>
+name: job-output
 inputs:
   token:
     description: GitHub Access Token

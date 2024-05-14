@@ -29296,6 +29296,7 @@ function getCheckRunContext() {
     }
     return { sha: github.context.sha, runId };
 }
+main();
 
 
 /***/ }),

@@ -86,3 +86,5 @@ function getCheckRunContext(): {sha: string; runId: number} {
 
   return {sha: github.context.sha, runId}
 }
+
+main()
