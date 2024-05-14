@@ -7,6 +7,8 @@ async function main(): Promise<void> {
   try {
     const testReporter = new TestReporter()
     await testReporter.run()
+    console.log("end");
+    
   } catch (error) {
     if (error instanceof Error) core.setFailed(error)
     else core.setFailed(JSON.stringify(error))
@@ -46,18 +48,17 @@ class TestReporter {
       ...github.context.repo
     })
 
-    // core.info(`Updating check run conclusion (${conclusion}) and output`)
-    // const resp = await this.octokit.rest.checks.update({
-    //   check_run_id: createResp.data.id,
-    //   conclusion,
-    //   status: 'completed',
-    //   output: {
-    //     title: shortSummary,
-    //     summary,
-    //     annotations
-    //   },
-    //   ...github.context.repo
-    // })
+    core.info(`Updating check run conclusion ( and output`)
+    const resp = await this.octokit.rest.checks.update({
+      check_run_id: createResp.data.id,
+      conclusion: 'success',
+      status: 'completed',
+      output: {
+        title: `test skipped `,
+        summary: 'detail',
+      },
+      ...github.context.repo
+    })
   }
 }
 

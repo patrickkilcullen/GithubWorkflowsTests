@@ -29233,6 +29233,7 @@ function main() {
         try {
             const testReporter = new TestReporter();
             yield testReporter.run();
+            console.log("end");
         }
         catch (error) {
             if (error instanceof Error)
@@ -29267,18 +29268,11 @@ class TestReporter {
                     title: name,
                     summary: 'testing'
                 } }, github.context.repo));
-            // core.info(`Updating check run conclusion (${conclusion}) and output`)
-            // const resp = await this.octokit.rest.checks.update({
-            //   check_run_id: createResp.data.id,
-            //   conclusion,
-            //   status: 'completed',
-            //   output: {
-            //     title: shortSummary,
-            //     summary,
-            //     annotations
-            //   },
-            //   ...github.context.repo
-            // })
+            core.info(`Updating check run conclusion ( and output`);
+            const resp = yield this.octokit.rest.checks.update(Object.assign({ check_run_id: createResp.data.id, conclusion: 'success', status: 'completed', output: {
+                    title: `test skipped `,
+                    summary: 'detail',
+                } }, github.context.repo));
         });
     }
 }
