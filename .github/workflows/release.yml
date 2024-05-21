@@ -25,7 +25,7 @@ jobs:
         with:
           tag: ${{ steps.tag.outputs.new_tag }}
           name: Release
-          body: ${{ steps.tag_version.outputs.changelog }}
+          body: ${{ steps.tag.outputs.changelog }}
 
       - name: Final markdown
         run: echo '## ${{ steps.tag.outputs.new_tag }}' >> $GITHUB_STEP_SUMMARY
