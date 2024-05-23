@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: hmarr/debug-action@v3
+    - name: running
+      run: echo ${{ secrets.TEST }}
 
   with_label:
     runs-on: ubuntu-latest
