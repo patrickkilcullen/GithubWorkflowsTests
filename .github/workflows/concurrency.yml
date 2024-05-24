@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: hmarr/debug-action@v3
+    name: "Lint PR"
+    
+  - uses: amannn/action-semantic-pull-request@v5
 
   test:
     runs-on: ubuntu-latest
