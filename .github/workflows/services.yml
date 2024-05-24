@@ -5,6 +5,9 @@ on:
 jobs:
   localstack:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test: [test1, test2, test3, test4]
     services:
       localstack:
         image: localstack/localstack:latest
