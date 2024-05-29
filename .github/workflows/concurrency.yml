@@ -10,6 +10,49 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - name: "Find changed terraform configs"
+        id: changed-tf
+        uses: tj-actions/changed-files@v10
+        with:
+          files: |
+            ./**
+
+    - name: List all changed files
+      env:
+        ALL_CHANGED_FILES: ${{ steps.changed-tf.outputs.all_changed_files }}
+      run: |
+        for file in ${ALL_CHANGED_FILES}; do
+          echo "$file was changed"
+        done
+
+    - name: "Find changed terraform configs"
+      id: changed-test1
+      uses: tj-actions/changed-files@v10
+      with:
+        dir_names: true
+
+    - name: List all changed files
+      env:
+        ALL_CHANGED_FILES: ${{ steps.changed-test1.outputs.all_changed_files }}
+      run: |
+        for file in ${ALL_CHANGED_FILES}; do
+          echo "$file was changed"
+        done
+
+    - name: "Find changed terraform configs"
+      id: changed-test1-2
+      uses: tj-actions/changed-files@v10
+      with:
+        dir_names: true
+        dir_names_max_depth: 0
+
+    - name: List all changed files
+      env:
+        ALL_CHANGED_FILES: ${{ steps.changed-test1-2.outputs.all_changed_files }}
+      run: |
+        for file in ${ALL_CHANGED_FILES}; do
+          echo "$file was changed"
+        done
     - uses: hmarr/debug-action@v3
 
   test:
