@@ -1,5 +1,5 @@
-name: Jobs
-
+name: concurrency
+run-name: concurrency
 on: pull_request
 
 concurrency:
