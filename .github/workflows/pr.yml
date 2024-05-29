@@ -9,6 +9,11 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+            
+      - name: Semantic Release PR Title Check
+        uses: osl-incubator/semantic-release-pr-title-check@v1.4.1
+        
       - name: Set Environment Failed
         uses: actions/github-script@v7
         with:
