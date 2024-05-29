@@ -54,6 +54,10 @@ jobs:
           echo "$file was changed"
         done
     - uses: hmarr/debug-action@v3
+    
+    - uses: amannn/action-semantic-pull-request@v5
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
