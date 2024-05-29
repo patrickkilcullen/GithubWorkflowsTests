@@ -1,6 +1,8 @@
 name: concurrency
 run-name: concurrency
-on: pull_request
+
+on:
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
