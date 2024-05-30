@@ -13,11 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "Find changed terraform configs"
-          id: changed-tf
-          uses: tj-actions/changed-files@v10
-          with:
-            files: |
-              ./**
+        id: changed-tf
+        uses: tj-actions/changed-files@v10
+        with:
+          files: |
+            ./**
 
       - name: List all changed files
         env:
