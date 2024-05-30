@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: "Find changed terraform configs"
         id: changed-tf
-        uses: tj-actions/changed-files@v10
+        uses: tj-actions/changed-files@v44
         with:
           files: |
             ./**
@@ -30,7 +30,7 @@ jobs:
 
       - name: "Find changed terraform configs"
         id: changed-test1
-        uses: tj-actions/changed-files@v10
+        uses: tj-actions/changed-files@v44
         with:
           dir_names: true
 
@@ -44,7 +44,7 @@ jobs:
 
       - name: "Find changed terraform configs"
         id: changed-test1-2
-        uses: tj-actions/changed-files@v10
+        uses: tj-actions/changed-files@v44
         with:
           dir_names: true
           dir_names_max_depth: 0
