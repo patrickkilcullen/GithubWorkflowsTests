@@ -1,0 +1,25 @@
+name: deploy prod
+on:
+  workflow_dispatch:
+
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Environment Failed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.info('Deployment completed')
+
+  job2:
+    runs-on: ubuntu-latest
+    environment: prod
+    needs:
+      - job1
+    steps:
+      - name: Set Environment Failed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.info('Deployment Failed')
