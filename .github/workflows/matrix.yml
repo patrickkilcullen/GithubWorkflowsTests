@@ -11,11 +11,11 @@ jobs:
         with:
           input: |
             label:
-              linux:
+              first:
                 place: [job-a, job-b]
-              macos:
+              second:
                 place: [job-c]
-              windows:
+              third:
                 place: [job-a]
           config: |
             github: ${{ toJSON(github) }}
