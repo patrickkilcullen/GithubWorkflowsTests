@@ -12,22 +12,18 @@ jobs:
           input: |
             label:
               linux:
-                os: ubuntu-latest
-                job: [job-a, job-b, { "$value": "job-c", "$if": "config.github.actor != 'mmastrac'" }]
-                user: { "$dynamic": "config.github.actor" }
+                place: [job-a, job-b]
               macos:
-                os: macOS-latest
-                job: [job-c]
+                place: [job-c]
               windows:
-                os: windows-2019
-                job: [job-a]
+                place: [job-a]
           config: |
             github: ${{ toJSON(github) }}
 
   matrix:
-    name: ${{ matrix.label }} / ${{ matrix.job }}
+    name: ${{ matrix.label }} / ${{ matrix.place }}
     needs: generate
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         include: ${{ fromJSON(needs.generate.outputs.matrix) }}
