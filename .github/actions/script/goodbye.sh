@@ -1,0 +1,2 @@
+echo "goodbye"
+ls
