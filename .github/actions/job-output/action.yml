@@ -1,0 +1,12 @@
+name: job-output
+inputs:
+  token:
+    description: GitHub Access Token
+    required: false
+    default: ${{ github.token }}
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
+branding:
+  color: blue
+  icon: file-text

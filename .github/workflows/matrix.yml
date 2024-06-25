@@ -1,0 +1,32 @@
+on: push
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.generate.outputs.matrix }}
+    steps:
+      - id: generate
+        uses: "mmastrac/mmm-matrix@v1"
+        with:
+          input: |
+            label:
+              first:
+                place: [job-a, job-b]
+              second:
+                place: [job-c]
+              third:
+                place: [job-a]
+          config: |
+            github: ${{ toJSON(github) }}
+
+  matrix:
+    name: ${{ matrix.label }} / ${{ matrix.place }}
+    needs: generate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include: ${{ fromJSON(needs.generate.outputs.matrix) }}
+    steps:
+      - name: Print matrix
+        run: "echo '${{ toJSON(matrix) }}'"

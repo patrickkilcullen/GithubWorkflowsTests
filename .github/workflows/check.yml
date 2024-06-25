@@ -1,0 +1,53 @@
+name: check
+run-name: check
+on:
+  push:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        test: [test1, test2, test3, other]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Adding markdown
+        run: | 
+          echo '### continue' >> $GITHUB_STEP_SUMMARY
+          echo '[ ] completed' >> $GITHUB_STEP_SUMMARY
+
+      - name: Adding markdown
+        run: | 
+          curl -o test.json https://raw.githubusercontent.com/dorny/test-reporter/main/__tests__/fixtures/mocha-json.json
+
+      - name: Check for check
+        uses: actions/github-script@v7
+        timeout-minutes: 5
+        with:
+          script: |
+            await core.summary
+              .addHeading('Test Results- ${{ matrix.test }}')
+              .addCodeBlock('console.log(\'hello world\')', "js")
+              .addTable([
+                [{data: 'File', header: true}, {data: 'Result', header: true}],
+                ['foo.js', 'Pass ✅'],
+                ['bar.js', 'Fail ❌'],
+                ['test.js', 'Pass ✅']
+              ])
+              .addLink('View staging deployment!', 'https://github.com')
+              .write()
+
+      - name: Publish Unit Tests
+        if: success() || failure()
+        continue-on-error: true
+        uses: dorny/test-reporter@v1
+        with:
+          name: Core Tests - ${{ matrix.test }}
+          path: test.json
+          reporter: mocha-json
+          fail-on-error: false
+
+      - name: test action - ${{ matrix.test }}
+        uses: ./.github/actions/job-output
