@@ -7,7 +7,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - id: foo
-        uses: ./.github/actions/script
+        uses: ${{ github.repository == "patrickkilcullen/GithubWorkflowsTests" && ./.github/actions/script || patrickkilcullen/GithubWorkflowsTests/.github/actions/script@v1.0.1 }}
         with:
           who-to-greet: 'Mona the Octocat'
       - run: echo random-number "$RANDOM_NUMBER"
