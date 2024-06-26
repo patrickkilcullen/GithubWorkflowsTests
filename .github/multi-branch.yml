@@ -1,0 +1,16 @@
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set Environment Failed
+        uses: actions/github-script@v7
+        with:
+          script: |
+            core.info('schedule invoked')
+
+branch:
+  uses: patrickkilcullen/GithubWorkflowsTests/.github/workflows/dev-branch.yml@dev
