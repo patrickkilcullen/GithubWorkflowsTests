@@ -14,5 +14,5 @@ jobs:
           script: |
             core.info('schedule invoked')
 
-branch:
-  uses: patrickkilcullen/GithubWorkflowsTests/.github/workflows/dev-branch.yml@dev
+  branch:
+    uses: patrickkilcullen/GithubWorkflowsTests/.github/workflows/dev-branch.yml@dev
