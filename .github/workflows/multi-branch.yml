@@ -1,4 +1,6 @@
+name: Multi Branch schedule
 on:
+  push:
   schedule:
     - cron: '*/15 * * * *'
 
