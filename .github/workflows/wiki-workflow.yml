@@ -15,7 +15,7 @@ jobs:
     - name: create file
       run: |
         cd markdown
-        echo '# Test File' > test4.md
+        echo '# Test File and' > test4.md
     - name: Push to wiki
       run: |
         cd markdown
