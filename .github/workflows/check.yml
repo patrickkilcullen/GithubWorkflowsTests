@@ -12,7 +12,8 @@ jobs:
         with:
           script: |
             console.log('${{ github.actor }}')
-            let response = await github.rest.users.getByUsername({'${{ github.actor }}'})
+            const username = "${{ github.actor }}"
+            let response = await github.rest.users.getByUsername({username})
             console.log(response)
   
   build:
