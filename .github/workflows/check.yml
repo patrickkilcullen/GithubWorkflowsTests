@@ -4,6 +4,17 @@ on:
   push:
 
 jobs:
+  octo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            console.log('${{ github.actor }}')
+            let response = await github.rest.users.getByUsername({'${{ github.actor }}'})
+            console.log(response)
+  
   build:
     strategy:
       matrix:
