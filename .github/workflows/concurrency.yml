@@ -1,20 +1,77 @@
-name: Jobs
+name: concurrency
+run-name: concurrency
 
-on: pull_request
+on:
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
   cancel-in-progress: true
 
+permissions:
+  id-token: write
+  contents: read
+  pull-requests: read
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: hmarr/debug-action@v3 
-    
-    - uses: amannn/action-semantic-pull-request@v5
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: hmarr/debug-action@v3 
+      - uses: actions/checkout@v4
+      - name: "Find changed terraform configs"
+        id: changed-tf
+        uses: tj-actions/changed-files@v44
+        with:
+          files: |
+            ./**
+
+      - name: List all changed files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-tf.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+
+      - name: "Find changed terraform configs"
+        id: changed-test1
+        uses: tj-actions/changed-files@v44
+        with:
+          dir_names: true
+
+      - name: List all changed files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-test1.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+
+      - name: "Find changed terraform configs"
+        id: changed-test1-2
+        uses: tj-actions/changed-files@v44
+        with:
+          dir_names: true
+          dir_names_max_depth: 1
+          dir_names_exclude_current_dir: true
+          files: |
+            !./.github/**
+            !./test/**
+          matrix: true
+
+      - name: List all changed files
+        env:
+          ALL_CHANGED_FILES: ${{ steps.changed-test1-2.outputs.all_changed_files }}
+        run: |
+          for file in ${ALL_CHANGED_FILES}; do
+            echo "$file was changed"
+          done
+      - uses: hmarr/debug-action@v3
+      
+      - uses: amannn/action-semantic-pull-request@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
