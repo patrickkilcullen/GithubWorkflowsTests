@@ -1,0 +1,46 @@
+name: Generate Input Summary
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Target deployment environment'
+        type: choice
+        required: true
+        default: 'staging'
+        options:
+          - dev
+          - staging
+          - prod
+      version:
+        description: 'Release version tag'
+        type: string
+        required: true
+        default: 'v1.0.0'
+      run_tests:
+        description: 'Run integration tests'
+        type: boolean
+        required: false
+        default: true
+
+jobs:
+  output-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Write inputs to Job Summary
+        env:
+          INPUTS_JSON: ${{ toJSON(inputs) }}
+        run: |
+          echo "### Workflow Inputs 📋" >> $GITHUB_STEP_SUMMARY
+          echo "| Input Name | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------|-------|" >> $GITHUB_STEP_SUMMARY
+          
+          echo "$INPUTS_JSON" | jq -r 'to_entries | .[] | "| **\(.key)** | \(.value) |"' >> $GITHUB_STEP_SUMMARY
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "<details><summary>View Raw JSON</summary>" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          echo "$INPUTS_JSON" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "</details>" >> $GITHUB_STEP_SUMMARY
