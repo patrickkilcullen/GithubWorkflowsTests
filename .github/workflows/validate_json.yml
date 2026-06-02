@@ -1,0 +1,42 @@
+name: Validate JSON
+
+# Trigger the action on push and pull requests, 
+# but only if a .json file was added or modified.
+on:
+  push:
+    paths:
+      - '**.json'
+  pull_request:
+    paths:
+      - '**.json'
+
+jobs:
+  validate:
+    name: Syntax Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate JSON files
+        run: |
+          # Find all .json files (excluding node_modules) and check their syntax
+          exit_code=0
+          
+          # Read files line by line to handle paths with spaces safely
+          while IFS= read -r -d '' file; do
+            echo "Validating: $file"
+            # 'jq empty' parses the file and throws an error if syntax is invalid
+            if ! jq empty "$file"; then
+              echo "::error file=$file::Invalid JSON syntax in $file"
+              exit_code=1
+            fi
+          done < <(find . -type f -name "*.json" -not -path "*/node_modules/*" -print0)
+          
+          if [ $exit_code -ne 0 ]; then
+            echo "One or more JSON files are invalid."
+            exit $exit_code
+          else
+            echo "All JSON files are valid!"
+          fi
