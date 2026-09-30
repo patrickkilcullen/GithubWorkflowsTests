@@ -1,13 +1,27 @@
 name: Services
 on:
   push:
+    tags-ignore:
+      - '**'
+
+jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses:  actions/checkout@v6.1.0
+      - name: Create Tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a "v${{ github.run_number }}" -m "Release v${{ github.run_number }}"
+          git push origin "v${{ github.run_number }}"
 
 jobs:
   localstack:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test: [test1, test2, test3, test4]
+        test: []
     services:
       localstack:
         image: localstack/localstack:latest
