@@ -2,8 +2,21 @@ name: check
 run-name: check
 on:
   push:
+    tags-ignore:
+      - '**'
 
 jobs:
+  checkout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses:  actions/checkout@v6.1.0
+      - name: Create Tag
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git tag -a "v${{ github.run_number }}" -m "Release v${{ github.run_number }}"
+          git push origin "v${{ github.run_number }}"
+  
   build:
     strategy:
       matrix:
@@ -11,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses:  actions/checkout@v6.1.0
 
       - name: Adding markdown
         run: | 
